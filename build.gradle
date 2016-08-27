@@ -1,0 +1,53 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    preDexEnabled = 'true'.equals(System.getProperty('pre-dex', 'true'))
+
+    versionMajor = 0
+    versionMinor = 1
+    versionPatch = 0
+    versionBuild = 0
+
+    buildToolsVersion = '23.0.3'
+    compileSdkVersion = 24
+    targetSdkVersion = 24
+    minSdkVersion = 14
+
+    supportLibVersion = '24.1.1'
+    butterknifeVersion = '7.0.1'
+
+    //supportLib
+    supportLibAppCompat = "com.android.support:appcompat-v7:$supportLibVersion"
+    supportLibDesign = "com.android.support:design:$supportLibVersion"
+    supportLibRecyclerview = "com.android.support:recyclerview-v7:$supportLibVersion"
+
+    butterKnife = "com.jakewharton:butterknife:$butterknifeVersion"
+
+    versionCode = versionMajor * 1000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
+    versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+
+    gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+    buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

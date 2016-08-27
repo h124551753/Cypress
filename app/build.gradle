@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def storePwd = properties.getProperty("keystore.storePassword")
+def keyPwd = properties.getProperty("keystore.keyPassword")
+def alias = properties.getProperty("keystore.keyAlias")
+
+def BOOLEAN = 'boolean'
+def STRING = 'String'
+def INT = 'int'
+def TRUE = 'true'
+def FALSE = 'false'
+
+def GIT_SHA = 'GIT_SHA'
+def BUILD_TIME = 'BUILD_TIME'
+
+def CONNECTION_TIMEOUT = 'CONNECTION_TIMEOUT'
+def REST_ENDPOINT = 'REST_ENDPOINT'
+
+
+android {
+    publishNonDefault true
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion "${rootProject.ext.buildToolsVersion}"
+
+    defaultConfig {
+        applicationId "com.molmc.cypress"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        buildConfigField STRING, GIT_SHA, "\"${rootProject.ext.gitSha}\""
+        buildConfigField STRING, BUILD_TIME, "\"${rootProject.ext.buildTime}\""
+        buildConfigField INT, CONNECTION_TIMEOUT, '2000'
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../debug.keystore')
+        }
+
+        release {
+            keyAlias alias
+            keyPassword keyPwd
+            storeFile file('../release.keystore')
+            storePassword storePwd
+        }
+    }
+
+    productFlavors {
+        dev {
+            applicationId "${project.android.defaultConfig.applicationId}.dev"
+            versionName "${project.android.defaultConfig.versionName}-beta-${rootProject.ext.gitSha}"
+            buildConfigField STRING, REST_ENDPOINT, '""'
+        }
+        prod {
+            applicationId project.android.defaultConfig.applicationId
+            buildConfigField STRING, REST_ENDPOINT, '""'
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            signingConfig signingConfigs.debug
+            versionNameSuffix "-debug"
+        }
+
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            debuggable false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+
+    //supportLib
+    compile rootProject.ext.supportLibAppCompat
+    compile rootProject.ext.supportLibDesign
+    compile rootProject.ext.supportLibRecyclerview
+
+    // 注解框架
+    compile rootProject.ext.butterKnife
+}
