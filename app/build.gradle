@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -84,6 +85,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    compile project(path: ':mvp')
+    compile project(path: ':core')
 
     //supportLib
     compile rootProject.ext.supportLibAppCompat
@@ -92,4 +95,14 @@ dependencies {
 
     // 注解框架
     compile rootProject.ext.butterKnife
+
+    //数据统计
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
+        transitive = true;
+    }
+
+    //内存泄露检查
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }
