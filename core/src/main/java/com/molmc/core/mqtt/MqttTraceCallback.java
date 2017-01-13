@@ -29,7 +29,7 @@ public class MqttTraceCallback implements MqttTraceHandler {
 
 	public void traceException(String arg0, String arg1,
 	                           Exception arg2) {
-		AppLog.e(arg2, formateString(arg0, arg1));
+		AppLog.e(formateString(arg0, arg1));
 	}
 
 	private String formateString(String arg0, String arg1) {

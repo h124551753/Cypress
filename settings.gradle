@@ -1,1 +1,3 @@
-include ':app', ':core', ':mvp'
+include ':app'
+include ':core'
+include ':mvp'

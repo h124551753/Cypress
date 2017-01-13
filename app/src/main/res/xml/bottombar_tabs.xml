@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<tabs>
+		<tab
+			barColorWhenSelected="?attr/colorPrimary"
+			icon="@drawable/ic_explore"
+			id="@+id/tab_explore"
+			title="Explore"/>
+		<tab
+			barColorWhenSelected="?attr/colorPrimary"
+			icon="@drawable/ic_forum"
+			id="@+id/tab_forum"
+			title="Forum"/>
+		<tab
+			barColorWhenSelected="?attr/colorPrimary"
+			icon="@drawable/ic_public"
+			id="@+id/tab_favorites"
+			title="Favorites"/>
+
+		<tab
+			barColorWhenSelected="?attr/colorPrimary"
+			icon="@drawable/ic_share"
+			id="@+id/tab_nearby"
+			title="Nearby"/>
+		<tab
+			barColorWhenSelected="?attr/colorPrimary"
+			icon="@drawable/ic_person"
+			id="@+id/tab_friends"
+			title="Friends"/>
+	</tabs>
+</PreferenceScreen>

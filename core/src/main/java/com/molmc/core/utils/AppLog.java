@@ -1,8 +1,7 @@
 package com.molmc.core.utils;
 
-import com.molmc.core.BuildConfig;
 
-import timber.log.Timber;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by mingjun on 16/7/17.
@@ -10,12 +9,15 @@ import timber.log.Timber;
 public class AppLog {
 
     private static final String TAG = "CypressApp";
+    private static boolean DEBUG = false;
+
 
     /**
      * initialize the logger.
      */
-    public static void init() {
-        Timber.plant(new Timber.DebugTree());
+    public static void init(boolean debug) {
+        DEBUG = debug;
+        Logger.init(TAG);
     }
 
     /**
@@ -23,19 +25,8 @@ public class AppLog {
      * @param msg
      */
     public static void i(String msg) {
-        if (BuildConfig.DEBUG) {
-            Timber.i(msg);
-        }
-    }
-
-	/**
-     * log.i
-     * @param msg
-     * @param args
-     */
-    public static void i(String msg, Object... args){
-        if (BuildConfig.DEBUG) {
-            Timber.i(msg, args);
+        if (DEBUG) {
+            Logger.i(msg);
         }
     }
 
@@ -44,8 +35,8 @@ public class AppLog {
      * @param msg
      */
     public static void d(String msg) {
-        if (BuildConfig.DEBUG) {
-            Timber.d(msg);
+        if (DEBUG) {
+            Logger.d(msg);
         }
     }
 
@@ -54,8 +45,8 @@ public class AppLog {
      * @param msg
      */
     public static void w(String msg) {
-        if (BuildConfig.DEBUG) {
-            Timber.w(msg);
+        if (DEBUG) {
+            Logger.w(msg);
         }
     }
 
@@ -64,22 +55,10 @@ public class AppLog {
      * @param msg
      */
     public static void e(String msg) {
-        Timber.e(msg);
-    }
-
-    /**
-     * log.e
-     * @param msg
-     */
-    public static void e(String msg, Object... args) {
-        Timber.e(msg, args);
+        Logger.e(msg);
     }
 
     public static void e(Throwable e) {
-        Timber.e(e, "");
-    }
-
-    public static void e(Throwable e, Object... args) {
-        Timber.e(e, "", args);
+        Logger.e(e, "");
     }
 }

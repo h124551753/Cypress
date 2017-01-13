@@ -5,4 +5,13 @@
 	<string name="navigation_drawer_close">Close navigation drawer</string>
 
 	<string name="action_settings">Settings</string>
+
+	<string name="comm_hint_exit">再按一次退出</string>
+	<string name="loading">加载中...</string>
+	<string name="tips">提示</string>
+	<string name="confirm">确定</string>
+	<string name="cancel">取消</string>
+	<string name="send">发送</string>
+	<string name="save">保存</string>
+	<string name="date_format">yyyy年MM月dd日</string>
 </resources>
